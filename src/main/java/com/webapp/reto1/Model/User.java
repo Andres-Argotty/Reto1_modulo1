@@ -6,23 +6,25 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
-@Table(name = "user")
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class User {
-@Id
-@NonNull
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Table(name = "user", indexes = @Index(name = "indx_email", columnList = "user_email", unique = true))
+public class User implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-@NonNull
-@Column(name = "user_email",nullable = false,length = 50)
+    @NonNull
+    @Column(name = "user_email",nullable = false,length = 50)
     private String email;
     @NonNull
     @Column(name = "user_password", nullable = false, length = 50)
     private String password;
-@NonNull
+    @NonNull
     @Column(name = "user_name", nullable = false,length = 80)
     private String name;
 
